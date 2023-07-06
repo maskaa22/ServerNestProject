@@ -8,11 +8,13 @@ import {AuthController} from "./auth/auth.controller";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {User} from "./users/user.entity";
 import {Category} from "./categories/category.entity";
+import {CategoriesController} from "./categories/categories.controller";
+import {CategoriesModule} from "./categories/categories.module";
 
 
 @Module({
   controllers: [UsersController,
-    //CategoriesController,
+    CategoriesController,
     AuthController
   ],
   providers: [],
@@ -39,7 +41,7 @@ import {Category} from "./categories/category.entity";
     }),
     UsersModule,
     AuthModule,
-    //CategoriesModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}

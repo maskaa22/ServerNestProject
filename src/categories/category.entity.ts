@@ -1,5 +1,13 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import {User} from "../users/user.entity";
 
 @Entity()
@@ -17,7 +25,8 @@ export class Category {
 
     @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
     //@Column({type: DataType.DATE, allowNull: false})
-    dateCreated: Date;
+    @Column()
+    dateCreated: number;
 
     @ApiProperty({example: '12-12-2023', description: 'Дата створення', default: '12-12-2023'})
     //@Column({type: DataType.STRING})
@@ -30,15 +39,7 @@ export class Category {
     updatedAt: Date;
 
     @ManyToOne(() => User, (user) => user.categories)
-    //@JoinColumn({name: 'id'})
+    @JoinColumn({name: 'user_id'})
     user:User
 
-    // @ApiProperty({example: 'dfgvdfg345tdfgdfg34tergfetv', description: 'Роль', default: 'Ідентифікатор користувача'})
-    // //@BelongsTo(() => UserModel, 'id')
-    // @ForeignKey(() => UserModel)
-    // @Column({type: DataType.INTEGER, allowNull: false})
-    // userId: number;
-    //
-    // @BelongsTo(() => UserModel)
-    // user: UserModel;
 }
