@@ -2,7 +2,6 @@ import {ApiProperty} from "@nestjs/swagger";
 
 export class CreateCategoryDto {
 
-    @ApiProperty({example: 'developer', description: 'Назва категорії'})
+    @ApiProperty({example: 'Developer', description: 'Name of category'})
     readonly name: string;
-
 }

@@ -4,48 +4,42 @@ import {
     CreateDateColumn,
     Entity,
     JoinColumn,
-    ManyToOne, OneToMany,
+    ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import {User} from "../users/user.entity";
+
 import {Task} from "../tasks/task.entity";
+import {User} from "../users/user.entity";
 
 @Entity()
 export class Category {
 
-    @ApiProperty({example: 1, description: 'Унікальний ідентифікатор'})
-    //@Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
+    @ApiProperty({example: 1, description: 'Unique identifier'})
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
 
-    @ApiProperty({example: 'example@gmail.com', description: 'Назва категорії'})
-    //@Column({type: DataType.STRING, allowNull: false})
+    @ApiProperty({example: 'Development', description: 'Category name'})
     @Column({nullable: false})
     name: string;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
-    //@Column({type: DataType.DATE, allowNull: false})
+    @ApiProperty({example: '05.07.2023', description: 'Category creation date'})
     @Column()
     dateCreated: number;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'Category creation date'})
     @CreateDateColumn()
     createdAt: Date;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата внесення змін', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'Date of amendment'})
     @UpdateDateColumn()
     updatedAt: Date;
 
     @ManyToOne(() => User, (user) => user.categories)
     @JoinColumn({name: 'userId'})
-    user:User;
+    user: User;
 
-    @ApiProperty({example: [], description: 'Унікальний ідентифікатор категорій'})
     @OneToMany(() => Task, (task) => task.category, {onDelete: "CASCADE"})
-        //@ForeignKey(() => CategoryModel)
-    tasks:Task[];
-
+    tasks: Task[];
 }

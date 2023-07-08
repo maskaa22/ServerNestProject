@@ -10,11 +10,11 @@ export class ValidationPipe implements PipeTransform<any> {
         const obj = plainToClass(metadata.metatype, value);
         const error = await validate(obj);
 
-        if(error.length) {
+        if (error.length) {
             let messages = error.map(err => {
-                return `${Object.values(err.constraints).join(', ')}`
+                return `${Object.values(err.constraints).join(', ')}`;
             })
-            throw new ValidationException(messages)
+            throw new ValidationException(messages);
         }
         return value;
     }

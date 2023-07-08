@@ -8,48 +8,42 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
+
 import {Category} from "../categories/category.entity";
 
 @Entity()
 export class Task {
 
-    @ApiProperty({example: 1, description: 'Унікальний ідентифікатор'})
-    //@Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
+    @ApiProperty({example: 1, description: 'Unique identifier'})
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
 
-    @ApiProperty({example: 'example@gmail.com', description: 'Назва категорії'})
-    //@Column({type: DataType.STRING, allowNull: false})
+    @ApiProperty({example: 'Autorization', description: 'Task name'})
     @Column({nullable: false})
     name: string;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
-    //@Column({type: DataType.DATE, allowNull: false})
+    @ApiProperty({example: '05.07.2023', description: 'Task start date'})
     @Column()
     dateStart: Date;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
-    //@Column({type: DataType.DATE, allowNull: false})
+    @ApiProperty({example: '10.07.2023', description: 'End date of the task'})
     @Column()
     dateEnd: Date;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
-    //@Column({type: DataType.DATE, allowNull: false})
+    @ApiProperty({example: '05.07.2023', description: 'Task description'})
     @Column()
     description: string;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'Task creation date'})
     @CreateDateColumn()
     createdAt: Date;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата внесення змін', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'Date of amendment'})
     @UpdateDateColumn()
     updatedAt: Date;
 
     @ManyToOne(() => Category, (category) => category.tasks)
     @JoinColumn({name: 'categoryId'})
-    category:Category
+    category: Category
 
 }

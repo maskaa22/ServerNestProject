@@ -1,43 +1,36 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Category} from "../categories/category.entity";
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
+import {Category} from "../categories/category.entity";
+
 @Entity()
-export class User  {
+export class User {
 
-    @ApiProperty({example: 1, description: 'Унікальний ідентифікатор'})
-    //@HasMany(() => CategoryModel, 'userId')
-    //@Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
+    @ApiProperty({example: 1, description: 'Unique identifier'})
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
 
-    @ApiProperty({example: 'example@gmail.com', description: 'Емейл'})
-    //@Column({type: DataType.STRING, unique: true, allowNull: false})
+    @ApiProperty({example: 'example@gmail.com', description: 'User email'})
     @Column({nullable: false})
     email: string;
 
-    @ApiProperty({example: 'dfgvdfg345tdfgdfg34tergfetv', description: 'Пароль'})
-    //@Column({type: DataType.STRING, allowNull: false})
+    @ApiProperty({example: 'dfgvdfg345tdfgdfg34tergfetv', description: 'Password email'})
     @Column({nullable: false})
     password: string;
 
-    @ApiProperty({example: 'user', description: 'Роль', default: 'user'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: 'user', description: 'User role', default: 'user'})
     @Column({nullable: true})
     role: string;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата створення', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'User creation date'})
     @CreateDateColumn()
     createdAt: Date;
 
-    @ApiProperty({example: '12-12-2023', description: 'Дата внесення змін', default: '12-12-2023'})
-    //@Column({type: DataType.STRING})
+    @ApiProperty({example: '05.07.2023', description: 'Date of amendment'})
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @ApiProperty({example: [], description: 'Унікальний ідентифікатор категорій'})
+    @ApiProperty({example: [], description: 'Unique identifier category'})
     @OneToMany(() => Category, (category) => category.user)
-    //@ForeignKey(() => CategoryModel)
-    categories:Category[];
+    categories: Category[];
 }

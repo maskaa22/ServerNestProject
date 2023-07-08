@@ -3,13 +3,13 @@ import {IsEmail, IsString, Length} from "class-validator";
 
 export class CreateUserDto {
 
-    @ApiProperty({example: 'user@gmail.com', description: 'email'})
-    @IsString({message: 'Повинна бути рядком'})
-    @IsEmail({},{message: 'Incorrect email'})
+    @ApiProperty({example: 'user@gmail.com', description: 'User email'})
+    @IsString({message: 'Must be a line'})
+    @IsEmail({}, {message: 'Incorrect email'})
     readonly email: string;
 
-    @ApiProperty({example: '12345', description: 'password'})
-    @IsString({message: 'Повинна бути рядком'})
+    @ApiProperty({example: '23rff3', description: 'password'})
+    @IsString({message: 'Must be a line'})
     @Length(4, 16, {message: 'Incorrect password'})
     readonly password: string;
 }
