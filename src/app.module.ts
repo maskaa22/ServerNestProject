@@ -10,12 +10,16 @@ import {User} from "./users/user.entity";
 import {Category} from "./categories/category.entity";
 import {CategoriesController} from "./categories/categories.controller";
 import {CategoriesModule} from "./categories/categories.module";
+import { TasksModule } from './tasks/tasks.module';
+import {TasksController} from "./tasks/tasks.controller";
+import {Task} from "./tasks/task.entity";
 
 
 @Module({
   controllers: [UsersController,
     CategoriesController,
-    AuthController
+    AuthController,
+    TasksController
   ],
   providers: [],
   imports: [
@@ -35,13 +39,14 @@ import {CategoriesModule} from "./categories/categories.module";
         database: configService.get('POSTGRES_DB'),
         synchronize: true,
          //entities: [__dirname + '/../**/*.entity.{.js, .ts}']
-        entities: [User, Category]
+        entities: [User, Category, Task]
 
       })
     }),
     UsersModule,
     AuthModule,
     CategoriesModule,
+    TasksModule,
   ],
 })
 export class AppModule {}

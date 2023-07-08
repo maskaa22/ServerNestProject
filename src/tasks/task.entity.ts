@@ -4,15 +4,14 @@ import {
     CreateDateColumn,
     Entity,
     JoinColumn,
-    ManyToOne, OneToMany,
+    ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import {User} from "../users/user.entity";
-import {Task} from "../tasks/task.entity";
+import {Category} from "../categories/category.entity";
 
 @Entity()
-export class Category {
+export class Task {
 
     @ApiProperty({example: 1, description: 'Унікальний ідентифікатор'})
     //@Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
@@ -27,7 +26,17 @@ export class Category {
     @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
     //@Column({type: DataType.DATE, allowNull: false})
     @Column()
-    dateCreated: number;
+    dateStart: Date;
+
+    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
+    //@Column({type: DataType.DATE, allowNull: false})
+    @Column()
+    dateEnd: Date;
+
+    @ApiProperty({example: '12-12-2023', description: 'Дата створення категорії'})
+    //@Column({type: DataType.DATE, allowNull: false})
+    @Column()
+    description: string;
 
     @ApiProperty({example: '12-12-2023', description: 'Дата створення', default: '12-12-2023'})
     //@Column({type: DataType.STRING})
@@ -39,13 +48,8 @@ export class Category {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @ManyToOne(() => User, (user) => user.categories)
-    @JoinColumn({name: 'userId'})
-    user:User;
-
-    @ApiProperty({example: [], description: 'Унікальний ідентифікатор категорій'})
-    @OneToMany(() => Task, (task) => task.category, {onDelete: "CASCADE"})
-        //@ForeignKey(() => CategoryModel)
-    tasks:Task[];
+    @ManyToOne(() => Category, (category) => category.tasks)
+    @JoinColumn({name: 'categoryId'})
+    category:Category
 
 }

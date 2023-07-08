@@ -5,6 +5,7 @@ import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs';
 import {User} from "../users/user.entity";
 
+
 @Injectable()
 export class AuthService {
 
@@ -27,6 +28,7 @@ export class AuthService {
 
         return await this.usersService.createUser({...userDto, password: hashPassword});
     }
+
 
     private async generateToken(user: User) {
         const payload = {id: user.id, email: user.email};

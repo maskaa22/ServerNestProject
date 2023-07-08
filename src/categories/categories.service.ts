@@ -3,11 +3,13 @@ import {CreateCategoryDto} from "./dto/create-categori.dto";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Category} from "./category.entity";
 import {Repository} from "typeorm";
+import {Task} from "../tasks/task.entity";
 
 @Injectable()
 export class CategoriesService {
 
-    constructor(@InjectRepository(Category) private categoryRepository: Repository<Category>) {}
+    constructor(@InjectRepository(Category) private categoryRepository: Repository<Category>,
+                @InjectRepository(Task) private taskRepository: Repository<Task>) {}
 
     async createCategory(dto: CreateCategoryDto, id: number) {
 
@@ -33,6 +35,12 @@ export class CategoriesService {
         const category = await this.categoryRepository.findOne({where: {id}});
 
         if(!category) throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
+
+        const tasks = await this.taskRepository.find({where: {category: {id}}})
+
+        tasks.map(async task => {
+            await this.taskRepository.delete({id: task.id})
+        })
 
         return await this.categoryRepository.delete(id);
     }
