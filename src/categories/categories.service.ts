@@ -41,11 +41,11 @@ export class CategoriesService {
 
         const tasks = await this.taskRepository.find({where: {category: {id}}});
 
-        tasks.map(async task => {
+        const delTask = tasks.map(async task => {
             await this.taskRepository.delete({id: task.id})
         });
 
-        return await this.categoryRepository.delete(id);
+        if(delTask) return await this.categoryRepository.delete(id);
     }
 
     async editCategory(dto: CreateCategoryDto, id: number) {
